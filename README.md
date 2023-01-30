@@ -1,1 +1,1 @@
-# assembly-AT91
+A set of programms written in Assembly on an AT91 microcontroller. The concepts of these run from computing simple math, to more complex equations and even the Insertion Sort algorithm. All of that while keeping in mind the architecture of AT91, utilizing the status register's flags for the conditions and subroutines and using the general purpose registers to store/change values in/from the main memory of the system. 

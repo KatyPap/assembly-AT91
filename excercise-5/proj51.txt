@@ -1,0 +1,43 @@
+.arm
+.text
+.global main
+
+main:
+STMDB R13!, {R0-R12, R14}
+LDR R0, =Values
+MOV R1, #20
+BL Subrtn
+end:
+LDMIA R13!, {R0-R12, PC}
+
+Subrtn:
+STMDB R13!, {R2-R7}
+MOV R3, #0
+Loop1:
+ADD R4, R3, #1
+LDRB R2, [R0, R3]
+MOV R5, R3
+Loop2:
+LDRB R6, [R0, R4]
+CMP R2, R6
+MOVHI R5, R4
+MOVHI R2, R6
+ADD R4, R4, #1
+CMP R4, R1
+BLO Loop2
+endloop2:
+LDRB R7, [R0, R3]
+STRB R2, [R0, R3]
+STRB R7, [R0, R5]
+ADD R3, R3, #1
+CMP R3, #19
+BLO Loop1
+endloop1:
+endSubrtn:
+LDMIA R13!, {R2-R7}
+MOV PC, R14
+
+.data
+Values:
+.byte 0x01, 0x05, 0x08, 0x04, 0x02, 0x09, 0x0c, 0x0f, 0x03, 0x07
+.byte 0x11, 0x12, 0x0b, 0x13, 0x0e, 0x10, 0x14, 0x06, 0x0d, 0x0a

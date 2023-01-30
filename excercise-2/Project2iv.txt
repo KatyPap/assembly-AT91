@@ -1,0 +1,44 @@
+.arm
+.text
+.global main 
+
+main: 
+STMDB R13!,{R0-R12,R14}
+
+MOV R0, #0
+
+LDR R4, =PinakasA
+LDR R5, =PinakasB
+LDR R6, =Result
+LDR R1,[R4], #4
+LDR R2,[R5], #4
+ADDS R3, R1, R2
+STR R3,[R6], #4
+
+LOOP: 
+LDR R1,[R4], #4
+LDR R2,[R5], #4
+
+ADCS  R3,R1,R2 
+STR R3,[R6], #4
+
+CMP R0, #3
+ADD R0,R0, #1
+BNE LOOP 
+
+LDMIA R13!, {R0-R12}
+MOV PC,R14
+
+.data 
+PinakasA: 
+.word 0x39fe7f20
+.word 0x0b306f16
+.word 0x2d722d57
+.word 0xa8861742
+PinakasB:
+.word 0x59120113
+.word 0x2059705a
+.word 0x53436217
+.word 0x43c88c92
+Result:
+.word 0,0,0,0

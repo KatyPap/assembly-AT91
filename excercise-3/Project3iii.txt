@@ -1,0 +1,27 @@
+.arm 
+.text 
+.global main 
+
+main: 
+STMDB R13!, {R0-R12, R14}
+MOV R1, #0x01
+MOV R2, #0x02
+LDR R3, =Stor
+STRB R1, [R3], #1
+STRB R2, [R3], #1
+MOV R0, #0
+LOOP:
+ADD R4, R1, R2
+STRB R4, [R3], #1
+MOV R1, R2
+MOV R2, R4
+CMP R0, #3
+ADD R0, R0, #1
+BNE LOOP
+label:
+
+LDMIA R13!, {R0-R12, PC}
+
+.data 
+Stor:
+.byte 0x00, 0x00, 0x00, 0x00, 0x00, 0x00

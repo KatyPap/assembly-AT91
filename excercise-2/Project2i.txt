@@ -1,0 +1,45 @@
+.arm 
+.text 
+.global main 
+
+main: 
+STMDB R13!,{R0-R12,R14}
+  
+@Thetw ton R0 ws deikth 
+MOV R0, #0
+
+LDR R4, =PinakasA
+LDR R5, =PinakasB
+LDR R6, =Result 
+
+LOOP:	 
+LDRB R1, [R4], #1
+LDRB R2, [R5],  #1
+
+ADD R3, R1, R2
+STRB R3, [R6], #1
+
+CMP R0, #15
+ADD R0, R0, #1
+BNE LOOP 
+
+
+LDMIA R13!, {R0-R12}
+MOV PC,R14
+
+.data 
+PinakasA: 
+.byte 0x20,0x7f,0xfe,0x39
+.byte 0x16,0x6f,0x30,0x0b
+.byte 0x57,0x2d,0x72,0x2d
+.byte 0x42,0x17,0x86,0xd8
+PinakasB: 
+.byte 0x13,0x01,0x12,0x59
+.byte 0x5a,0x70,0x59,0x20
+.byte 0x17,0x62,0x43,0x53
+.byte 0x92,0x8c,0xc8,0x43
+Result: 
+.byte 0,0,0,0
+.byte 0,0,0,0
+.byte 0,0,0,0
+.byte 0,0,0,0
